@@ -9,12 +9,12 @@ $userNr = $_POST['user'];
 //SQL för att ta bort användare
 
 //Tar bort alla artiklar i ordrar relaterade till användaren
-$sql = "DELETE ArticlesInOrder FROM `Order` INNER JOIN ArticlesInOrder ON `Order`.orderNr = ArticlesInOrder.orderNr WHERE `Order`.orderNr = ArticlesInOrder.orderNr AND `Order`.userNr = '$userNr'";
+$sql = "DELETE ArticlesInOrder FROM `order` INNER JOIN ArticlesInOrder ON `order`.orderNr = ArticlesInOrder.orderNr WHERE `order`.orderNr = ArticlesInOrder.orderNr AND `order`.userNr = '$userNr'";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 
 //Tar bort alla ordrar relaterade till användaren
-$sql = "DELETE FROM `Order` WHERE `Order`.userNr = '$userNr'";
+$sql = "DELETE FROM `order` WHERE `order`.userNr = '$userNr'";
 $stmt = $conn->prepare($sql);
 $stmt->execute();
 

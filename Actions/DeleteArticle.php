@@ -2,15 +2,23 @@
 //Öppna anslutning till databas
 include_once 'connection.php';
 
+if(isset($_POST['submit'])){
 //Hämta globala variabler från POST
 $articleNr = $_POST['article'];
 
 //SQL för att ta bort artikel
-$sql = "DELETE FROM Article WHERE articleNr = '$articleNr'";
+$sql = "UPDATE Article SET available=false WHERE articleNr = '$articleNr'";
 //Ställ frågan
-$conn->exec($sql);
+$stmt = $conn->prepare($sql);
+$stmt->execute();
 
 //Skicka användaren tillbaka till startsidan
-header("Location: ../utv_varuhantering.php");
+header("Location: ../varuhantering.php");
+exit();
+
+} else {
+header("Location: ../varuhantering.php#Yo");
+exit();
+}
 
 ?>

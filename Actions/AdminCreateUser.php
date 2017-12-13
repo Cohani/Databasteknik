@@ -6,13 +6,12 @@ include_once 'connection.php';
 if(isset($_POST['submit'])){
 	
 	//Hämta variabler från POST
-	$userNr = $_POST['user'];
 	$username = $_POST['username'];
 	$password = $_POST['password'];
 	$admin = $_POST['admin'];
 
 	//Om användarnamn eller lösenord är tomt
-		if(!empty($username) && !empty($password) && !empty($userNr)){
+		if(!empty($username) && !empty($password)){
 			//Om användarnamne eller lösenord innehåller ogiltiga karaktärer
 			if(!preg_match("/^[a-zA-Z0-9]*$/", $username) || !preg_match("/^[a-zA-Z0-9]*$/", $password)){
 				//Ge felmeddelande
@@ -21,22 +20,22 @@ if(isset($_POST['submit'])){
 			} else {
 				
 				//SQL fråga för kolla om användarnamnet redan existerar
-				$sql = "SELECT * FROM User WHERE userNr='$userNr'";
+				$sql = "SELECT * FROM User WHERE username='$username'";
 				
 				//Ställ fråga
 				$stmt = $conn->prepare($sql);
 				$stmt->execute();
 				$result = $stmt->fetchAll();
 				
-				//Om användaren finns
-				if($result != null){
+				//Om inga användare med samma användarnamn hittades
+				if($result == null){
 					//Om administratörkont är ikryssat
 					if($admin != null){
-						//SQL fråga för att uppdatera administratörkonto
-						$sql = "UPDATE User SET username = '$username', password = '$password', administrator = true WHERE userNr = '$userNr'";
+						//SQL fråga för att skapa administratörkonto
+						$sql = "INSERT INTO User (username, password, administrator) VALUES ('$username', '$password', true)";
 					} else{
-						//SQL fråga för att uppdatera kundkonto
-						$sql = "UPDATE User SET username = '$username', password = '$password', administrator = false WHERE userNr = '$userNr'";
+						//SQL fråga för att akapa kundkonto
+						$sql = "INSERT INTO User (username, password, administrator) VALUES ('$username', '$password', false)";
 					}
 				
 					//Ställ frågan
@@ -48,7 +47,7 @@ if(isset($_POST['submit'])){
 					exit();
 				} else {
 					//Ge felmeddelande
-					header("Location: ../kontohantering.php#RegistreringsNoUserExistsYo");
+					header("Location: ../kontohantering.php#RegistreringsUserExistsYo");
 					exit();
 				}
 			}
@@ -63,5 +62,4 @@ if(isset($_POST['submit'])){
 	header("Location: ../kontohantering.php#Yo");
 	exit();
 }
-
 ?>

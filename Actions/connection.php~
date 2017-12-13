@@ -1,11 +1,11 @@
 <?php
 
 //Servernamnet där databsen finns
-$servername = "utbweb.its.ltu.se";
+$servername = "localhost";
 //Användarnamn för servern
-$username = "robrub-5";
+$username = "root";
 //Serverns lösenord
-$password = "hejsan%";
+$password = "";
 
 //Upprätta anslutning
 try{

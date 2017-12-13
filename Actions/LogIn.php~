@@ -25,7 +25,7 @@ if(isset($_POST['submit'])){
 			$userNr = $result['userNr'];
 			
 			//SQL fråga för att hämta användarens aktuella order som kundvagn
-			$sql = "SELECT * FROM `Order` WHERE userNr='$userNr' AND finalized=false";
+			$sql = "SELECT * FROM `order` WHERE userNr='$userNr' AND finalized=false";
 			//Ställ frågan
 			$stmt = $conn->prepare($sql);
 			$stmt->execute();
@@ -38,7 +38,7 @@ if(isset($_POST['submit'])){
 			} else {
 				//Om ingen order hittades
 				//Skapa en ny order som användarens aktuella kundvagn
-				$sql = "insert into `Order` (userNr, finalized) values ( '$userNr', false)";
+				$sql = "insert into `order` (userNr, finalized) values ( '$userNr', false)";
 				$conn->exec($sql);
 				$_SESSION['currentOrder'] = $conn->lastInsertId();
 			}

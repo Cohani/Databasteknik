@@ -3,22 +3,24 @@
 //include_once 'connection.php';
 session_start();
 
+if(isset($_POST['submit'])){
 //Globala variabler från POST
 $orderNr = $_POST['ordernr'];
 
+//Sätt den aktuella ordern som en session variabel
 if(!isset($_SESSION['orderId'])){
-		$_SESSION['orderId'] = $orderNr;
-	} else {
-	       $_SESSION['orderId'] = $orderNr;
-	}
-
-//sql för att hämta info
-//$sql = "SELECT * FROM `Order` WHERE orderNr='$ordernr'";
-//ställ frågan
-//$conn->exec($sql);
+	$_SESSION['orderId'] = $orderNr;
+} else {
+	$_SESSION['orderId'] = $orderNr;
+}
 
 
-//Skicka användaren tillbaka till startsidan
-header("Location: ../utv_orderhantering.php");
+//Skicka tillbaka användaren
+header("Location: ../orderhantering.php");
+exit();
+} else {
+header("Location: ../orderhantering.php#Yo");
+exit();
+}
 
 ?>
