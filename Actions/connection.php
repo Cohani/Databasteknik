@@ -5,7 +5,7 @@ $servername = "utbweb.its.ltu.se";
 //Användarnamn för servern
 $username = "robrub-5";
 //Serverns lösenord
-$password = "hejsan%";
+$password = "***********";
 
 //Upprätta anslutning
 try{
