@@ -57,11 +57,33 @@
 	echo "<form action='Actions/addToCart.php' method='POST'>";
 	echo "<input type='number' name='quantity' min='1'>";
 	echo "<button type='submit' name='articleNr' value='" . $articleNr . "'>Lägg till</button><br>";
+	echo "</form> <br>";
+	
+	//skriv ut formulär för att posta kommentar
+	echo "<form action='Actions/postComment.php' method='POST'>";
+		
+	echo "<input type='text' name='title' placeholder='Rubrik'> Betyg";
+		
+	echo "<select name='score'>";
+	echo "<option value='0'>0</option>";
+	echo "<option value='1'>1</option>";
+	echo "<option value='2'>2</option>";
+	echo "<option value='3'>3</option>";
+	echo "<option value='4'>4</option>";
+	echo "<option value='5'>5</option>";
+	echo "</select><br>";
+		
+	echo "<textarea name='text' rows='10' cols='30'></textarea>";
+		
+	echo "<button type='submit' name='submit'>Skicka</button>";
+		
 	echo "</form>";
+	
+	
 	
 	} else {
 		//Om användaren inte är inloggad be dem logga in
-		echo "<p> logga in för att köpa. </p>";
+		echo "<p> logga in för att köpa och skriva kommentarer. </p>";
 	}
 	?>
 	
@@ -73,26 +95,6 @@
 		$totalScore = 0;
 		$count = 0;
 		$avgScore = 0;
-	
-		//skriv ut formulär för att posta kommentar
-		echo "<form action='Actions/postComment.php' method='POST'>";
-		
-		echo "<input type='text' name='title' placeholder='Rubrik'> Betyg";
-		
-		echo "<select name='score'>";
-		echo "<option value='0'>0</option>";
-		echo "<option value='1'>1</option>";
-		echo "<option value='2'>2</option>";
-		echo "<option value='3'>3</option>";
-		echo "<option value='4'>4</option>";
-		echo "<option value='5'>5</option>";
-		echo "</select><br>";
-		
-		echo "<textarea name='text' rows='10' cols='30'></textarea>";
-		
-		echo "<button type='submit' name='submit'>Skicka</button>";
-		
-		echo "</form>";
 		
 		//Hämta artikelns kommentarer
 		$sql = "SELECT * FROM Comment INNER JOIN User ON Comment.userNr = User.userNr WHERE articleNr='$articleNr'";
